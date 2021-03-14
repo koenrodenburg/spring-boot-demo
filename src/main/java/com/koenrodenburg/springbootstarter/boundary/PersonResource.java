@@ -15,12 +15,12 @@ import java.util.Optional;
 public class PersonResource {
     private final PersonService personService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public Iterable<Person> findAll() {
         return personService.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Person> get(@PathVariable Long id) {
         Optional<Person> optionalPerson = personService.findById(id);
         return optionalPerson
@@ -28,12 +28,12 @@ public class PersonResource {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @PostMapping(value = "/")
     public void save(@RequestBody Person person) {
         personService.save(person);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Person> delete(@PathVariable Long id) {
         Optional<Person> optionalPerson = personService.findById(id);
         if(optionalPerson.isPresent()) {
